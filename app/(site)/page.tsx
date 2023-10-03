@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AuthForm } from "./_components/AuthForm";
+import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <Image src={'/images/ameameame.jpg'} alt="" width={80} height={80} className="rounded-full aspect-square" />
         <h3 className="text-3xl font-bold text-gray-900">Sign in into your account</h3>
         <AuthForm />
+
       </div>
     </div>
   )
