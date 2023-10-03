@@ -48,7 +48,8 @@ export function AuthForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             username: "",
-            email: ''
+            email: '',
+            password: ''
         },
     })
 
@@ -76,9 +77,9 @@ export function AuthForm() {
                             </FormItem>
                         )}
                     />
-                    <FormField
+                    {variant === 'REGISTER' && <FormField
                         control={form.control}
-                        name="email"
+                        name="username"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Username</FormLabel>
@@ -91,7 +92,7 @@ export function AuthForm() {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    />
+                    />}
                     <FormField
                         control={form.control}
                         name="password"
