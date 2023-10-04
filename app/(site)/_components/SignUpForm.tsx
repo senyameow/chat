@@ -24,6 +24,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 interface SignUpFormProps {
     toggleVariant: () => void
@@ -43,8 +44,10 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
     const onSubmit = async (values: ISignUp) => {
         try {
             await axios.post(`/api/sign-up`, values)
+            toast.success(`You've successfully created an account!`)
         } catch (error) {
             console.log(error)
+            toast.error(`Something went wrong`)
         }
     }
 

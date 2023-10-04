@@ -18,10 +18,11 @@ import AuthSocialButton from "./AuthSocialButton"
 import { AiFillGithub, AiFillGoogleCircle } from 'react-icons/ai'
 import { Loader2 } from "lucide-react"
 
-import { ILogin, loginSchema, signUpSchema } from '@/lib/validation'
-import { ISignUp } from '@/lib/validation'
+import { ILogin, loginSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { signIn } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 interface SignInFormProps {
     toggleVariant: () => void
@@ -38,7 +39,22 @@ const SignInForm = ({ toggleVariant }: SignInFormProps) => {
     })
 
     const onSubmit = (values: ILogin) => {
-
+        signIn('credentials', {
+            redirect: false,
+            ...values
+        })
+            .then(res => {
+                console.log('ZXCZXC')
+                if (res?.error) {
+                    toast.error(res.error)
+                }
+                if (res?.ok && !res?.error) {
+                    toast.success(`You've successully logged in!`)
+                }
+            })
+            .catch(err => {
+                toast.error(err)
+            })
     }
 
     return (
@@ -51,7 +67,7 @@ const SignInForm = ({ toggleVariant }: SignInFormProps) => {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="senyameow@mail.ru" {...field} />
+                                <Input autoFocus placeholder="senyameow@mail.ru" {...field} />
                             </FormControl>
                             <FormDescription>
                                 connect your account with email
