@@ -23,6 +23,8 @@ import { ISignUp } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 
+import axios from 'axios'
+
 interface SignUpFormProps {
     toggleVariant: () => void
 }
@@ -38,8 +40,12 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
         },
     })
 
-    const onSubmit = (values: ISignUp) => {
-
+    const onSubmit = async (values: ISignUp) => {
+        try {
+            await axios.post(`/api/sign-up`, values)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -93,8 +99,8 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
                         </FormItem>
                     )}
                 />
-                <Button disabled={form.formState.isLoading} type="submit" className="w-full">
-                    {form.formState.isLoading ? (
+                <Button disabled={form.formState.isSubmitting} type="submit" className="w-full">
+                    {form.formState.isSubmitting ? (
                         <Loader2 className="w-4 h-4 animate-spin text-white" />
                     ) : 'Sign Up'}
                 </Button>
@@ -108,7 +114,7 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
                     <AuthSocialButton icon={AiFillGoogleCircle} onClick={() => { }} />
                 </div>
                 <div className="w-full flex items-center justify-center">
-                    <Button type="button" onClick={toggleVariant} className="text-sm text-neutral-600 w-fit p-2 py-1" variant={'ghost'}>
+                    <Button disabled={form.formState.isSubmitting} type="button" onClick={toggleVariant} className="text-sm text-neutral-600 w-fit p-2 py-1" variant={'ghost'}>
                         have an account?
                     </Button>
                 </div>
