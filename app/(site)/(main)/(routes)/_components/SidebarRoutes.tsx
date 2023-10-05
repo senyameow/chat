@@ -7,8 +7,11 @@ import { cn } from '@/lib/utils'
 import { ArrowLeftFromLine, MessageCircle, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useModalStore } from '@/hooks/use-modal-store'
 
 const SidebarRoutes = () => {
+
+    const { onOpen } = useModalStore()
 
     const pathname = usePathname()
 
@@ -25,7 +28,7 @@ const SidebarRoutes = () => {
                 </Button>
             </ActionTooltip>
             <ActionTooltip label='leave' side='right'>
-                <Button onClick={() => { }} className={`py-3 px-3 rounded-lg`} variant={'ghost'}>
+                <Button onClick={() => { onOpen('logOut', {}) }} className={`py-3 px-3 rounded-lg`} variant={'ghost'}>
                     <ArrowLeftFromLine className='w-6 h-6 text-rose-500' />
                 </Button>
             </ActionTooltip>
