@@ -10,6 +10,7 @@ const NavigationSidebar = async () => {
             <div className='flex items-center space-y-2 flex-col'>
                 <SidebarRoutes />
             </div>
+
         </div>
     )
 }

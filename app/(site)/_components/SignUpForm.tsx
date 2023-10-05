@@ -50,7 +50,7 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
             await axios.post(`/api/sign-up`, values)
             signIn('credentials', values)
             toast.success(`You've successfully created an account!`)
-            router.push('/users')
+            router.push('/conversations')
         } catch (error) {
             console.log(error)
             toast.error(`Something went wrong`)

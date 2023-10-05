@@ -53,7 +53,7 @@ const SignInForm = ({ toggleVariant }: SignInFormProps) => {
                 }
                 if (res?.ok && !res?.error) {
                     toast.success(`You've successully logged in!`)
-                    router.push('/users')
+                    router.push('/conversations')
                 }
             })
             .catch(err => {

@@ -15,7 +15,7 @@ const SidebarRoutes = () => {
     return (
         <>
             <ActionTooltip label='messages' side='right'>
-                <Link href={'/conversations'} className={cn(`${buttonVariants({ variant: 'ghost' }), 'py-3 px-3 rounded-lg'}`, (pathname === '/users' || pathname.startsWith('/users')) && `bg-gray-100`)}>
+                <Link href={'/conversations'} className={cn(`${buttonVariants({ variant: 'ghost' }), 'py-3 px-3 rounded-lg'}`, (pathname === '/convesraions' || pathname.startsWith('/convesraions')) && `bg-gray-100`)}>
                     <MessageCircle className='w-6 h-6 text-blue-500' />
                 </Link>
             </ActionTooltip>

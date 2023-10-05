@@ -8,6 +8,6 @@ export default withAuth({
 
 export const config = {
     mather: [
-        '/users/:path*'
+        '/conversations/:path*'
     ],
 }
