@@ -25,12 +25,16 @@ import * as z from 'zod'
 
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 interface SignUpFormProps {
     toggleVariant: () => void
 }
 
 const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
+
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
@@ -44,7 +48,9 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
     const onSubmit = async (values: ISignUp) => {
         try {
             await axios.post(`/api/sign-up`, values)
+            signIn('credentials', values)
             toast.success(`You've successfully created an account!`)
+            router.push('/users')
         } catch (error) {
             console.log(error)
             toast.error(`Something went wrong`)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -21,14 +21,17 @@ import { Loader2 } from "lucide-react"
 import { ILogin, loginSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
+import { redirect, useRouter } from 'next/navigation'
 
 interface SignInFormProps {
     toggleVariant: () => void
 }
 
 const SignInForm = ({ toggleVariant }: SignInFormProps) => {
+
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -50,6 +53,7 @@ const SignInForm = ({ toggleVariant }: SignInFormProps) => {
                 }
                 if (res?.ok && !res?.error) {
                     toast.success(`You've successully logged in!`)
+                    router.push('/users')
                 }
             })
             .catch(err => {
