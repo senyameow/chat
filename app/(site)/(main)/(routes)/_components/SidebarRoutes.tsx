@@ -8,6 +8,9 @@ import { ArrowLeftFromLine, MessageCircle, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useModalStore } from '@/hooks/use-modal-store'
+import { User } from '@prisma/client'
+
+
 
 const SidebarRoutes = () => {
 
