@@ -1,5 +1,6 @@
 'use client'
 import LogoutModal from "@/components/modals/LogoutModal"
+import UsersModal from "@/components/modals/UsersModal"
 import { useEffect, useState } from "react"
 
 export const ModalProvider = () => {
@@ -15,6 +16,7 @@ export const ModalProvider = () => {
     return (
         <>
             <LogoutModal />
+            <UsersModal />
         </>
     )
 }

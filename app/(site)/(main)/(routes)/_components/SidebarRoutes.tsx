@@ -10,9 +10,11 @@ import { usePathname } from 'next/navigation'
 import { useModalStore } from '@/hooks/use-modal-store'
 import { User } from '@prisma/client'
 
+interface SidebarRoutesProps {
+    users: User[]
+}
 
-
-const SidebarRoutes = () => {
+const SidebarRoutes = ({ users }: SidebarRoutesProps) => {
 
     const { onOpen } = useModalStore()
 
@@ -26,7 +28,7 @@ const SidebarRoutes = () => {
                 </Link>
             </ActionTooltip>
             <ActionTooltip label='people' side='right'>
-                <Button onClick={() => { }} className={`py-3 px-3 rounded-lg`} variant={'ghost'}>
+                <Button onClick={() => { onOpen('UsersModal', { users }) }} className={`py-3 px-3 rounded-lg`} variant={'ghost'}>
                     <Users className='w-6 h-6 text-lime-500' />
                 </Button>
             </ActionTooltip>

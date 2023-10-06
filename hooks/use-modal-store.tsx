@@ -1,8 +1,10 @@
+import { User } from '@prisma/client';
 import { create } from 'zustand'
 
 export type ModalType = 'DeleteChapter' | 'DeleteCourse' | 'UsersModal' | 'logOut'
 
 interface ModalData {
+    users?: User[]
 }
 
 interface useModalStoreProps {

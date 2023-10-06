@@ -2,7 +2,7 @@ import { db } from "@/lib/db"
 import getSession from "./get-session"
 
 
-export const getCurrentUser = async () => {
+export const getUsers = async () => {
     try {
         const session = await getSession()
 
