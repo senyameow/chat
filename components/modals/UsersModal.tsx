@@ -18,7 +18,7 @@ const UsersModal = () => {
         <Modal isOpen={isModalOpen} onClose={() => onClose()} title='People' description='Say hello to anyone!'>
             <ScrollArea className='w-full h-[420px]'>
                 {users?.map(user => (
-                    <UserCard image_url={user?.image!} name={user.name!} date={formatDistance(subDays(user.created_at, 3), new Date(), { addSuffix: true })} />
+                    <UserCard userId={user.id} image_url={user?.image!} name={user.name!} date={formatDistance(subDays(user.created_at, 3), new Date(), { addSuffix: true })} />
                 ))}
             </ScrollArea>
         </Modal>

@@ -10,6 +10,8 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     // там уже сделать страничку для приглоса + не будет лэйаута для диалога отдельно (что мне и надо)
     // уже в компоненте обрабатываем этот список как-то
 
+    // const conversations = await getConversations()
+
     return (
         <div className='h-full'>
 

@@ -51,7 +51,7 @@ model Account {
 
 model Conversation {
   id            String   @id @default(uuid())
-  lastMessageAt DateTime
+  lastMessageAt DateTime @default(now())
   name          String?
   lastMessage   String?
   isGroup       Boolean?
