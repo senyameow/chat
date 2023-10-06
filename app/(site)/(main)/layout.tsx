@@ -15,7 +15,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
 
             <div className='hidden lg:flex h-full w-96 z-50 flex-row fixed inset-y-0'>
                 <NavigationSidebar />
-                <ConversationsSidebar />
+                <ConversationsSidebar conversations={[]} />
             </div>
             <main className='lg:pl-96 lg:pt-20 h-full'>
                 {children}
