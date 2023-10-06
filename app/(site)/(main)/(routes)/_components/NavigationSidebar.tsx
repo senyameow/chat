@@ -1,7 +1,7 @@
 import React from 'react'
 import SidebarRoutes from './SidebarRoutes'
 import { getCurrentUser } from '@/actions/get-current-user'
-import Avatar from '@/components/Avatar'
+import CurrentUserButton from './CurrentUserButton'
 
 
 
@@ -14,9 +14,7 @@ const NavigationSidebar = async () => {
             <div className='flex items-center space-y-2 flex-col'>
                 <SidebarRoutes />
             </div>
-            <div>
-                <Avatar user={user!} />
-            </div>
+            <CurrentUserButton user={user!} />
         </div>
     )
 }
