@@ -1,8 +1,10 @@
 import React from 'react'
+import ListHeader from './ListHeader'
 
 const ConversationsSidebar = () => {
     return (
-        <div className='space-y-2 w-60 h-full border-r px-2 pt-2 pb-4'>
+        <div className=' w-80 h-full border-r p-6 pb-4'>
+            <ListHeader />
             <div className=''>
                 <div>qwe</div>
                 <div>qwe</div>

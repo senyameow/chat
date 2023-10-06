@@ -13,11 +13,11 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     return (
         <div className='h-full'>
 
-            <div className='hidden lg:flex h-full w-80 z-50 flex-row fixed inset-y-0'>
+            <div className='hidden lg:flex h-full w-96 z-50 flex-row fixed inset-y-0'>
                 <NavigationSidebar />
                 <ConversationsSidebar />
             </div>
-            <main className='lg:pl-80 lg:pt-20 h-full'>
+            <main className='lg:pl-96 lg:pt-20 h-full'>
                 {children}
             </main>
         </div>
