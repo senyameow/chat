@@ -30,9 +30,6 @@ const Conversation = ({ conversation, currentUser }: ConversationProps) => {
         return conversation.User.find(user => user?.id !== currentUser?.id)
     }, [conversation.User])
 
-    console.log(otherUser?.email, 'OTHER USER EMAIL')
-    console.log(currentUser?.email, 'CURRENTUSER EMAIL')
-
     return (
         <Link href={`/conversations/${conversation.id}`} className='w-full h-full cursor-pointer group transition'>
             <div className='p-2 flex flex-row justify-between items-start w-full group-hover:bg-gray-100 rounded-xl'>

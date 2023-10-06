@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt"
 import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
@@ -41,7 +40,7 @@ export const authOptions: AuthOptions = {
                     throw new Error(`Invalid credentials`)
                 }
 
-                const match = await bcrypt.compare(credentials.password, user.hashedPassword)
+                const match = credentials.password === user.hashedPassword
 
                 if (!match) {
                     throw new Error(`Invalid Password`)

@@ -1,15 +1,12 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-import * as bcrypt from 'bcrypt'
 
 
 export async function POST(req: Request) {
     try {
         const { email, password, username } = await req.json()
         if (!email || !password || !username) return new NextResponse(`Not enough data`, { status: 400 })
-
-        const hashedPassword = await bcrypt.hash(password, 12)
 
         const oldUser = await db.user.findFirst({
             where: {
@@ -25,7 +22,7 @@ export async function POST(req: Request) {
             data: {
                 email,
                 name: username,
-                hashedPassword
+                hashedPassword: password
             }
         })
 
