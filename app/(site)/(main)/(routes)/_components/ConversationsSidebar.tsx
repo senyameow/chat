@@ -7,22 +7,23 @@ import EmptyState from '@/components/ui/EmptyState'
 
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import { FullConvType } from '@/actions/get-conversations'
+import { getCurrentUser } from '@/actions/get-current-user'
 
 
 interface ConversationsSidebarProps {
     conversations: FullConvType[]
 }
 
-const ConversationsSidebar = ({ conversations }: ConversationsSidebarProps) => {
+const ConversationsSidebar = async ({ conversations }: ConversationsSidebarProps) => {
 
-    console.log(conversations)
+    const currentUser = await getCurrentUser()
 
     return (
         <div className=' w-80 h-full border-r p-6 pb-4'>
             <ListHeader />
             {conversations.length > 0 ? <ScrollArea className='h-full w-full'>
                 {conversations?.map(conv => (
-                    <Conversation id={conv.id} name={conv.name!} isGroup={conv.isGroup!} lastMessageAt={conv?.lastMessageAt!} lastMessage={conv.lastMessage || ''} key={conv.id} />
+                    <Conversation currentUser={currentUser} conversation={conv} key={conv.id} />
                 ))}
             </ScrollArea> : (
                 <EmptyState />
