@@ -1,11 +1,17 @@
-import { Ghost } from 'lucide-react'
+import { Ghost, LucideIcon } from 'lucide-react'
 import React from 'react'
 
-const EmptyState = () => {
+interface EmptyStateProps {
+    icon?: LucideIcon;
+    text?: string
+}
+
+const EmptyState = ({ icon = Ghost, text = 'Oooops... Only ghost here' }: EmptyStateProps) => {
+    const Icon = icon
     return (
         <div className='h-full w-full flex flex-col items-center justify-center text-center'>
-            <Ghost className='h-6 w-6 animate-bounce' />
-            <span className='italic text-sm '>Oooops... Only ghost here</span>
+            <Icon className='h-6 w-6 animate-bounce' />
+            <span className='italic text-sm '>{text}</span>
         </div>
     )
 }

@@ -5,6 +5,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import Conversation from './Conversation'
 import EmptyState from '@/components/ui/EmptyState'
 
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+
+
 interface ConversationsSidebarProps {
     conversations: ConversationType[]
 }
@@ -15,7 +18,7 @@ const ConversationsSidebar = ({ conversations }: ConversationsSidebarProps) => {
             <ListHeader />
             {conversations.length > 0 ? <ScrollArea className='h-full w-full'>
                 {conversations?.map(conv => (
-                    <Conversation key={conv.id} />
+                    <Conversation id={conv.id} name={conv.name!} isGroup={conv.isGroup!} lastMessageAt={format(subDays(conv.lastMessageAt!, 3), '')} lastMessage={conv.lastMessage || ''} key={conv.id} />
                 ))}
             </ScrollArea> : (
                 <EmptyState />
