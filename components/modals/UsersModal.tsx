@@ -3,14 +3,12 @@ import React from 'react'
 import { Modal } from '../ui/Modal'
 import { useModalStore } from '@/hooks/use-modal-store'
 import { ScrollArea } from '../ui/scroll-area'
+import UserCard from '../UserCard'
+import { format, formatDistance, subDays } from 'date-fns'
 
 const UsersModal = () => {
 
     const { type, data, isOpen, onClose } = useModalStore()
-
-    const tags = Array.from({ length: 50 }).map(
-        (_, i, a) => `v1.2.0-beta.${a.length - i}`
-    )
 
     const users = data?.users
 
@@ -20,7 +18,7 @@ const UsersModal = () => {
         <Modal isOpen={isModalOpen} onClose={() => onClose()} title='People' description='Say hello to anyone!'>
             <ScrollArea className='w-full h-[420px]'>
                 {users?.map(user => (
-                    <div className='w-full border p-2'>{user?.name}</div>
+                    <UserCard image_url={user?.image!} name={user.name!} date={formatDistance(subDays(user.created_at, 3), new Date(), { addSuffix: true })} />
                 ))}
             </ScrollArea>
         </Modal>

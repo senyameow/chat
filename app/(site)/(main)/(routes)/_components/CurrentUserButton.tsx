@@ -13,7 +13,7 @@ const CurrentUserButton = ({ user }: CurrentUserButtonProps) => {
 
     return (
         <button onClick={() => setIsOpen(!isOpen)} className='transition cursor-pointer hover:opacity-80'>
-            <Avatar user={user} isOnline />
+            <Avatar image_url={user?.image!} isOnline />
         </button>
     )
 }
