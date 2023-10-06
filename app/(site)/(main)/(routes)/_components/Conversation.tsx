@@ -10,10 +10,10 @@ import React from 'react'
 
 interface ConversationProps {
     id: string;
-    name: string;
-    isGroup: boolean;
-    lastMessageAt: string;
-    lastMessage: string;
+    name?: string;
+    isGroup?: boolean;
+    lastMessageAt?: Date;
+    lastMessage?: string;
 }
 
 const Conversation = ({ id, name, isGroup, lastMessage, lastMessageAt }: ConversationProps) => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import NavigationSidebar from './(routes)/_components/NavigationSidebar'
 import ConversationsSidebar from './(routes)/_components/ConversationsSidebar'
+import { getConversations } from '@/actions/get-conversations'
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
 
@@ -10,14 +11,16 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     // там уже сделать страничку для приглоса + не будет лэйаута для диалога отдельно (что мне и надо)
     // уже в компоненте обрабатываем этот список как-то
 
-    // const conversations = await getConversations()
+    const conversations = await getConversations()
+
+    console.log(conversations, 'CONVERSATIONS')
 
     return (
         <div className='h-full'>
 
             <div className='hidden lg:flex h-full w-96 z-50 flex-row fixed inset-y-0'>
                 <NavigationSidebar />
-                <ConversationsSidebar conversations={[]} />
+                <ConversationsSidebar conversations={conversations} />
             </div>
             <main className='lg:pl-96 lg:pt-20 h-full'>
                 {children}
