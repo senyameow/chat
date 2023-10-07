@@ -9,7 +9,7 @@ const page = async ({ params }: { params: { conversationId: string } }) => {
 
     return (
         <div className='flex flex-col h-full'>
-            <Body initialMessages={messages} />
+            <Body conversationId={params.conversationId} initialMessages={messages} />
         </div>
     )
 }

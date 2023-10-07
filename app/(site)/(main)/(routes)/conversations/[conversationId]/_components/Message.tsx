@@ -43,10 +43,10 @@ const Message = ({ message }: MessageProps) => {
                         <span className={cn(`font-bold text-sm`, isOwn ? 'text-white' : 'text-black')}>{message.text}</span>
                     </div>
                     {message.seen.length < 4 && isOwn && seenList && (
-                        <span className='text-xs w-fit place-self-end'>Seen by {seenList}</span>
+                        <span className='text-xs w-fit place-self-end text-neutral-400'>Seen by {seenList}</span>
                     )}
                     {message.seen.length > 4 && isOwn && seenList && (
-                        <span className='text-xs w-fit place-self-end'>Seen by {seenList.length} people</span>
+                        <span className='text-xs w-fit place-self-end text-neutral-400'>Seen by {seenList.length} people</span>
                     )}
                 </div>
 
