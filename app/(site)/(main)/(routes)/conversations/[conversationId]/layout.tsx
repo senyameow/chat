@@ -1,5 +1,6 @@
 import React from 'react'
 import ConversationInfo from '../../_components/ConversationInfo';
+import { getConversations } from '@/actions/get-conversations';
 
 interface ConversationsLayoutProps {
     children: React.ReactNode;
@@ -8,13 +9,16 @@ interface ConversationsLayoutProps {
     }
 }
 
-const ConversationsLayout = ({ children, params }: ConversationsLayoutProps) => {
+const ConversationsLayout = async ({ children, params }: ConversationsLayoutProps) => {
+
+    const conversations = await getConversations()
+
     return (
-        <div className='h-full'>
-            <div className='hidden md:flex h-full w-60 z-20 flex-col inset-y-0 fixed'>
-                <ConversationInfo conversationId={params.conversationId} />
+        <div className='h-full w-full'>
+            <div className='hidden md:block w-full lg:w-[calc(100vw-24rem)] h-20 z-20 flex-col inset-y-0 fixed'>
+                <ConversationInfo conversations={conversations} conversationId={params.conversationId} />
             </div>
-            <main className='h-full md:pl-60'>
+            <main className='h-full w-full'>
                 {children}
             </main>
         </div>

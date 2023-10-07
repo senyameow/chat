@@ -1,25 +1,22 @@
 import React from 'react'
 import ListHeader from './ListHeader'
-import { Conversation as ConversationType } from '@prisma/client'
+import { Conversation as ConversationType, User } from '@prisma/client'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Conversation from './Conversation'
 import EmptyState from '@/components/ui/EmptyState'
 
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import { FullConvType } from '@/actions/get-conversations'
-import { getCurrentUser } from '@/actions/get-current-user'
 
 
 interface ConversationsSidebarProps {
-    conversations: FullConvType[]
+    conversations: FullConvType[];
+    currentUser: User;
 }
 
-const ConversationsSidebar = async ({ conversations }: ConversationsSidebarProps) => {
-
-    const currentUser = await getCurrentUser()
+const ConversationsSidebar = ({ conversations, currentUser }: ConversationsSidebarProps) => {
 
     return (
-        <div className=' w-80 h-full border-r p-6 pb-4'>
+        <div className=' w-80 h-full lg:border-r p-6 pb-4'>
             <ListHeader />
             {conversations.length > 0 ? <ScrollArea className='h-full w-full'>
                 {conversations?.map(conv => (

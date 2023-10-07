@@ -1,18 +1,24 @@
-'use client'
+
 import React from 'react'
 import MobileSidebar from './MobileSidebar'
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
+import { FullConvType } from '@/actions/get-conversations';
+import { getCurrentUser } from '@/actions/get-current-user';
 
 interface ConversationInfoProps {
     conversationId: string;
+    conversations: FullConvType[];
 }
 
-const ConversationInfo = ({ conversationId }: ConversationInfoProps) => {
+const ConversationInfo = async ({ conversationId, conversations }: ConversationInfoProps) => {
+
+    const currentUser = await getCurrentUser()
+
     return (
-        <nav className=' bg-white w-full shadow-md flex items-center justify-center'>
-            <div className='flex items-center justify-between px-4 pr-6 w-full'>
-                <MobileSidebar />
+        <nav className='bg-white shadow-md w-full h-full flex items-center'>
+            <div className='w-full flex items-center justify-between px-4 pr-6'>
+                <MobileSidebar user={currentUser!} conversations={conversations} />
                 <div className='flex items-center h-full gap-2'>
                     <div className='w-12 h-12 rounded-full bg-rose-400' />
                     <div className='flex flex-col items-start justify-between h-full'>
@@ -21,7 +27,7 @@ const ConversationInfo = ({ conversationId }: ConversationInfoProps) => {
                     </div>
                 </div>
                 <div>
-                    <Button variant={'ghost'} onClick={() => { }}>
+                    <Button variant={'ghost'}>
                         <MoreHorizontal className='w-6 h-6 text-blue-400' />
                     </Button>
                 </div>
