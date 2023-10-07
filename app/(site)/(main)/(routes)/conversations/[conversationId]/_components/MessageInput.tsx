@@ -18,16 +18,18 @@ import { Input } from "@/components/ui/input"
 import { Plus } from "lucide-react"
 import { useModalStore } from "@/hooks/use-modal-store"
 import EmojiPicker from "@/components/EmojiPicker"
+import axios from "axios"
 
 interface MessageInputProps {
-    type: 'conversation' | 'group'
+    type: 'conversation' | 'group';
+    conversationId: string
 }
 
 const formSchema = z.object({
     text: z.string().min(1, ' '),
 })
 
-export function MessageInput({ type }: MessageInputProps) {
+export function MessageInput({ type, conversationId }: MessageInputProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,8 +40,14 @@ export function MessageInput({ type }: MessageInputProps) {
     const { isSubmitting } = form.formState
 
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            form.reset()
+            const message = await axios.post(`/api/conversations/${conversationId}/messages`, values)
+        } catch (error) {
+
+        }
+
     }
 
     const { onOpen } = useModalStore()
@@ -59,7 +67,7 @@ export function MessageInput({ type }: MessageInputProps) {
                                     </button>
                                     <Input
 
-                                        placeholder={`Message ${type === 'conversation' ? name : '#' + name}`}
+                                        placeholder={`Message ${type === 'conversation' ? 'CONV' : '#'}`}
                                         {...field} disabled={isSubmitting} className='px-14 border focus-visible:ring-0 ring-offset-0 focus-visible:ring-offset-0 py-6 dark:bg-zinc-700/60 text-zinc-600 dark:text-zinc-200' />
                                     {/* и небольшой смайлик, для модалки со смайлами */}
                                     <div className='absolute right-8 top-7'>

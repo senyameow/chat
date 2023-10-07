@@ -28,7 +28,7 @@ const ConversationsLayout = async ({ children, params }: ConversationsLayoutProp
             </div>
             <main className='h-[90%] w-full px-6 py-4 -pb-12'>
                 {children}
-                <MessageInput type={conversation?.isGroup ? 'group' : 'conversation'} />
+                <MessageInput conversationId={params.conversationId} type={conversation?.isGroup ? 'group' : 'conversation'} />
             </main>
         </div>
     )
