@@ -10,7 +10,7 @@ export async function POST(req: Request, { params }: { params: { conversationId:
 
         if (!currentUser?.id || !currentUser?.email) return new NextResponse('Unauthorized', { status: 401 })
 
-        const { text } = await req.json()
+        const { text, file_url } = await req.json()
 
         if (!text) return new NextResponse('No text provided', { status: 400 })
 
@@ -18,7 +18,27 @@ export async function POST(req: Request, { params }: { params: { conversationId:
             data: {
                 text,
                 userId: currentUser.id,
-                conversationId: params.conversationId
+                conversationId: params.conversationId,
+                file_url,
+                seen: {
+                    connect: {
+                        id: currentUser.id
+                    }
+                }
+            },
+            include: {
+                seen: true,
+                user: true
+            }
+        })
+
+        await db.conversation.update({
+            where: {
+                id: params.conversationId
+            },
+            data: {
+                lastMessageAt: message.created_at,
+                lastMessage: message.text || message.file_url
             }
         })
 
