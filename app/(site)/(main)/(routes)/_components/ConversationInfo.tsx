@@ -9,6 +9,7 @@ import { ConvType } from '@/actions/get-conversation';
 import { User } from '@prisma/client';
 import Image from 'next/image';
 import Avatar from '@/components/Avatar';
+import MoreConversation from './MoreConversation';
 
 interface ConversationInfoProps {
     conversation: ConvType;
@@ -38,9 +39,7 @@ const ConversationInfo = async ({ conversation, conversations, currentUser }: Co
                     </div>
                 </div>
                 <div>
-                    <Button variant={'ghost'}>
-                        <MoreHorizontal className='w-6 h-6 text-blue-400' />
-                    </Button>
+                    <MoreConversation conversation={conversation} name={conversation?.name || otherUser?.name!} otherUser={conversation?.isGroup ? null : otherUser!} />
                 </div>
             </div>
         </nav>
