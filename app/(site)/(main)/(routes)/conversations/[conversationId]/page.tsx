@@ -1,8 +1,16 @@
+import { getMessages } from '@/actions/get-messages'
 import React from 'react'
+import Body from './_components/Body'
+import { MessageInput } from './_components/MessageInput'
 
-const page = () => {
+const page = async ({ params }: { params: { conversationId: string } }) => {
+
+    const messages = getMessages(params.conversationId)
+
     return (
-        <div>page</div>
+        <div className='flex flex-col h-full'>
+            <Body />
+        </div>
     )
 }
 
