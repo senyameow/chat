@@ -19,6 +19,8 @@ import { Plus } from "lucide-react"
 import { useModalStore } from "@/hooks/use-modal-store"
 import EmojiPicker from "@/components/EmojiPicker"
 import axios from "axios"
+import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 interface MessageInputProps {
     type: 'conversation' | 'group';
@@ -39,13 +41,16 @@ export function MessageInput({ type, conversationId }: MessageInputProps) {
 
     const { isSubmitting } = form.formState
 
+    const router = useRouter()
+
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             form.reset()
             const message = await axios.post(`/api/conversations/${conversationId}/messages`, values)
+            router.refresh()
         } catch (error) {
-
+            toast.error('something went wrong')
         }
 
     }

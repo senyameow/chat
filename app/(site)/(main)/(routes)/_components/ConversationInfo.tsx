@@ -23,9 +23,13 @@ const ConversationInfo = async ({ conversation, conversations, currentUser }: Co
     return (
         <nav className='bg-white shadow-md w-full h-full flex items-center'>
             <div className='w-full flex items-center justify-between px-4 pr-6'>
-                <MobileSidebar user={currentUser!} conversations={conversations} />
+                <div className='md:hidden'>
+                    <MobileSidebar user={currentUser!} conversations={conversations} />
+                </div>
                 <div className='flex items-center h-full gap-2'>
-                    <Avatar image_url={otherUser?.image!} />
+                    <div className='hidden md:block'>
+                        <Avatar image_url={otherUser?.image!} />
+                    </div>
                     <div className='flex flex-col items-start justify-between h-full'>
                         <span>{conversation?.name || otherUser?.name}</span>
                         {conversation?.isGroup ? <span className='text-sm text-neutral-400'>{conversation?.User.length} members</span> : (

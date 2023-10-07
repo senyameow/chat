@@ -25,7 +25,7 @@ const MobileSidebar = ({ conversations, user }: MobileSidebarProps) => {
 
     return (
         <Sheet>
-            <SheetTrigger asChild className="block lg:hidden hover:opacity-80 transition hover:shadow-xl hover:bg-gray-100/30 cursor-pointer">
+            <SheetTrigger asChild className="hover:opacity-80 transition hover:shadow-xl hover:bg-gray-100/30 cursor-pointer">
                 <Menu />
             </SheetTrigger >
             <SheetContent className="p-0 w-96" side={"left"}>

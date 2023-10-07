@@ -5,11 +5,11 @@ import { MessageInput } from './_components/MessageInput'
 
 const page = async ({ params }: { params: { conversationId: string } }) => {
 
-    const messages = getMessages(params.conversationId)
+    const messages = await getMessages(params.conversationId)
 
     return (
         <div className='flex flex-col h-full'>
-            <Body />
+            <Body initialMessages={messages} />
         </div>
     )
 }
