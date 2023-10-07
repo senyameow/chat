@@ -2,21 +2,23 @@
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { MoreHorizontal } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ConversationsSidebar from './ConversationsSidebar'
 import { FullConvType } from '@/actions/get-conversations'
 import { ConvType } from '@/actions/get-conversation'
 import Avatar from '@/components/Avatar'
 import { User } from '@prisma/client'
 import UserInfo from './UserInfo'
+import { getNote } from '@/actions/get-note'
 
 interface MoreConversationProps {
     conversation: ConvType;
     name: string;
-    otherUser: User | null
+    otherUser: User | null;
 }
 
 const MoreConversation = ({ conversation, name, otherUser }: MoreConversationProps) => {
+
 
     return (
         <Sheet>

@@ -1,9 +1,12 @@
 import { FullConvType } from '@/actions/get-conversations';
 import { CurrentUser, getCurrentUser } from '@/actions/get-current-user';
 import Avatar from '@/components/Avatar';
+import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
+import { UtensilsCrossed } from 'lucide-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react'
+import DeleteChatButton from './DeleteChatButton';
 
 // че надо? надо понимать группа или 1 чел
 // имя
@@ -31,7 +34,7 @@ const Conversation = ({ conversation, currentUser }: ConversationProps) => {
     }, [conversation.User])
 
     return (
-        <Link href={`/conversations/${conversation.id}`} className='w-full h-full cursor-pointer group transition'>
+        <Link href={`/conversations/${conversation.id}`} className='w-full h-full cursor-pointer group transition relative'>
             <div className='p-2 flex flex-row justify-between items-start w-full group-hover:bg-gray-100 rounded-xl'>
                 <div className='flex items-start flex-row gap-2'>
                     <Avatar />
@@ -44,6 +47,7 @@ const Conversation = ({ conversation, currentUser }: ConversationProps) => {
                 </div>
                 <span className='text-neutral-400 text-sm'>{format(conversation.lastMessageAt!, 'p')}</span>
             </div>
+            <DeleteChatButton id={conversation?.id} />
         </Link>
     )
 }

@@ -1,3 +1,4 @@
+import { getNote } from '@/actions/get-note'
 import NoteForm from '@/components/NoteForm'
 import Container from '@/components/ui/Container'
 import { Separator } from '@/components/ui/separator'
@@ -10,10 +11,11 @@ interface UserInfoProps {
 }
 
 const UserInfo = ({ user }: UserInfoProps) => {
+
     return (
         <Container>
             <div className='flex flex-col gap-[0.5px]'>
-                <span className='text-white font-semibold'>{user.name}</span>
+                <span className='text-white font-semibold'>{user?.name}</span>
                 <span className='text-white font-semibold text-sm'>#{user.id}</span>
             </div>
             <Separator />
@@ -22,7 +24,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
                 <span className='text-slate-200 text-xs '>{format(user.created_at, 'MMM dd, yyyy')}</span>
             </div>
             <Separator />
-            <NoteForm />
+            <NoteForm userId={user.id} />
         </Container>
     )
 }

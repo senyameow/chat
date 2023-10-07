@@ -12,25 +12,33 @@ import qs from 'query-string'
 import { useDebounce } from '@/hooks/use-debounce'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { getNote } from '@/actions/get-note'
 
 interface NoteFormProps {
-    userId: string
+    userId: string;
 }
 
 const formSchema = z.object({
-    text: z.string()
+    text: z.string().min(1, ' ')
 })
 
 const NoteForm = ({ userId }: NoteFormProps) => {
 
+    const [note, setNote] = useState('')
+    console.log(userId)
+
+    console.log(note)
+
+
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            text: "",
+            text: note || '',
         },
     })
 
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(note)
     const debouncedValue = useDebounce(value, 500)
 
     useEffect(() => {
@@ -45,7 +53,7 @@ const NoteForm = ({ userId }: NoteFormProps) => {
 
         onSubmit(debouncedValue)
 
-    }, [debouncedValue])
+    }, [debouncedValue, note])
 
 
 
@@ -60,10 +68,7 @@ const NoteForm = ({ userId }: NoteFormProps) => {
                             <FormControl>
                                 <div className='py-2 relative'>
                                     <Textarea
-                                        {...field} placeholder={`Note...`} onChange={(e) => setValue(e.target.value)} value={value} className='resize-none px-10 pl-4 bg-transparent text-white text-sm placeholder:text-white/60 focus-visible:ring-0 ring-offset-0 focus-visible:ring-offset-0 w-full' />
-                                    <div className='absolute right-8 top-7'>
-                                        <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)} />
-                                    </div>
+                                        {...field} placeholder={`click to add a note`} onChange={(e) => setValue(e.target.value)} value={value} className='placeholder-slate-200 placeholder:text-sm border-none resize-none px-10 pl-4 bg-transparent text-white text-sm placeholder:text-white/60 focus-visible:ring-0 ring-offset-0 focus-visible:ring-offset-0 w-full' />
                                 </div>
                             </FormControl>
                         </FormItem>

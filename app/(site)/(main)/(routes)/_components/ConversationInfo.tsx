@@ -1,13 +1,9 @@
 
 import React from 'react'
 import MobileSidebar from './MobileSidebar'
-import { Button } from '@/components/ui/button'
-import { MoreHorizontal } from 'lucide-react'
 import { FullConvType } from '@/actions/get-conversations';
-import { getCurrentUser } from '@/actions/get-current-user';
 import { ConvType } from '@/actions/get-conversation';
 import { User } from '@prisma/client';
-import Image from 'next/image';
 import Avatar from '@/components/Avatar';
 import MoreConversation from './MoreConversation';
 

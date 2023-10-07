@@ -1,12 +1,22 @@
-import React from 'react'
+'use client'
+import { useModalStore } from "@/hooks/use-modal-store"
+import { useEffect } from "react"
 
-const page = async () => {
 
-    // хочу чтобы просто перебросило на первый конверсэйшн, если его нет, то хз че делать, либо открывать модалку, либо куда-то редиректить чтобы пригласить юзера
+export default function Home() {
+
+    const { onOpen, isOpen } = useModalStore()
+
+
+    useEffect(() => {
+        if (!isOpen) {
+
+            onOpen('UsersModal', {})
+        }
+
+    }, [onOpen, isOpen])
 
     return (
-        <div>page</div>
+        null
     )
 }
-
-export default page

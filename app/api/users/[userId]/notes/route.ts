@@ -16,6 +16,8 @@ export async function POST(req: Request, { params }: { params: { userId: string 
 
         if (!params.userId) return new NextResponse('No user Id provided', { status: 400 })
 
+        if (text.length === 0) return new NextResponse('')
+
         let note = await db.note.findFirst({
             where: {
                 userId: params.userId,

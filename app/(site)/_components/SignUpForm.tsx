@@ -27,12 +27,15 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { usePeopleStore } from '@/hooks/use-people-store'
 
 interface SignUpFormProps {
     toggleVariant: () => void
 }
 
 const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
+
+    const { onStoreUser } = usePeopleStore()
 
     const router = useRouter()
 
@@ -47,9 +50,11 @@ const SignUpForm = ({ toggleVariant }: SignUpFormProps) => {
 
     const onSubmit = async (values: ISignUp) => {
         try {
-            await axios.post(`/api/sign-up`, values)
+            const res = await axios.post(`/api/sign-up`, values)
             signIn('credentials', values)
             toast.success(`You've successfully created an account!`)
+            onStoreUser(res.data)
+
             router.push('/conversations')
         } catch (error) {
             console.log(error)
