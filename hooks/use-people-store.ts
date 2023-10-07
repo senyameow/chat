@@ -6,14 +6,18 @@ export type ModalType = 'createStore' | 'deleteStore' | 'createBillboard' | 'upd
 
 
 interface PeopleStoreProps {
-    users: User[]
+    users?: User[],
+    you?: User | undefined,
     onStoreUser: ({ user }: { user: User }) => void;
+    onStoreYou: ({ user }: { user: User }) => void;
 }
 
 export const usePeopleStore = create<PeopleStoreProps, [["zustand/persist", PeopleStoreProps]]>(
     persist((set) => ({
         users: [],
+        you: undefined,
         onStoreUser: ({ user }: { user: User }) => set((state: any) => ({ users: [...state.users, user] })),
+        onStoreYou: ({ user }: { user: User }) => set({ you: user })
     }),
         {
             name: 'qwe',
