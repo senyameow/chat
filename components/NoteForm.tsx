@@ -1,35 +1,71 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, FormControl, FormField, FormItem } from './ui/form'
 import { Plus } from 'lucide-react'
 import { Textarea } from './ui/textarea'
+import EmojiPicker from './EmojiPicker'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const NoteForm = () => {
+import qs from 'query-string'
+import { useDebounce } from '@/hooks/use-debounce'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+
+interface NoteFormProps {
+    userId: string
+}
+
+const formSchema = z.object({
+    text: z.string()
+})
+
+const NoteForm = ({ userId }: NoteFormProps) => {
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            text: "",
+        },
+    })
+
+    const [value, setValue] = useState('')
+    const debouncedValue = useDebounce(value, 500)
+
+    useEffect(() => {
+
+        const onSubmit = async (text: string) => {
+            try {
+                axios.post(`/api/users/${userId}/notes`, { text })
+            } catch (error) {
+                toast.error('something went wrong while adding note..')
+            }
+        }
+
+        onSubmit(debouncedValue)
+
+    }, [debouncedValue])
+
+
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form>
                 <FormField
                     control={form.control}
                     name="text"
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className='p-4 relative'>
-                                    <button onClick={() => onOpen('messageImage', {})} className='absolute w-[24px] h-[24px] bg-zink-500 dark:bg-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-300 transition rounded-full left-8 top-7 p-1 flex items-center justify-center' type='button'> {/* кнопка для тригера модалки с загрузкой файлы (даем тип батон, т.к. не хотим, чтобы она затригерилась на энтер случайно)*/}
-                                        <Plus className='text-[#313338] dark:text-white' size={20} />
-                                    </button>
+                                <div className='py-2 relative'>
                                     <Textarea
-
-                                        placeholder={`Message ${type === 'conversation' ? 'CONV' : '#'}`}
-                                        {...field} disabled={isSubmitting} className='px-14 border focus-visible:ring-0 ring-offset-0 focus-visible:ring-offset-0 py-6 dark:bg-zinc-700/60 text-zinc-600 dark:text-zinc-200' />
-                                    {/* и небольшой смайлик, для модалки со смайлами */}
+                                        {...field} placeholder={`Note...`} onChange={(e) => setValue(e.target.value)} value={value} className='resize-none px-10 pl-4 bg-transparent text-white text-sm placeholder:text-white/60 focus-visible:ring-0 ring-offset-0 focus-visible:ring-offset-0 w-full' />
                                     <div className='absolute right-8 top-7'>
                                         <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)} />
                                     </div>
                                 </div>
                             </FormControl>
-                            <FormDescription />
-                            <FormMessage />
                         </FormItem>
                     )}
                 />

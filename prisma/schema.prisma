@@ -25,6 +25,7 @@ model User {
 
   accounts Account[]
   messages Message[]
+  notes    Note[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -82,4 +83,16 @@ model Message {
   updated_at DateTime @updatedAt
 
   @@index([userId, conversationId])
+}
+
+model Note {
+  id     String @id @default(uuid())
+  text   String
+  userId String
+
+  writerId String
+  writer   User   @relation(fields: [writerId], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
